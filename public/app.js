@@ -29,10 +29,10 @@ $(document).ready(function() {
         comparisonBirthYear: comparisonBirthYear
       }),
       success: function(data) {
-        // Clear previous table rows
+        // 以前のテーブル行をクリア
         $('#ageComparisonTable tbody').empty();
 
-        // Add new rows for each age result
+        // 各年齢の結果の新しい行を追加
         for (let age = 0; age <= 100; age++) {
           const userYear = parseInt(userBirthYear) + age;
           const comparisonAge = userYear - parseInt(comparisonBirthYear);
@@ -44,30 +44,6 @@ $(document).ready(function() {
                       </tr>`;
           $('#ageComparisonTable tbody').append(row);
         }
-      },
-      error: function(xhr, status, error) {
-        console.error('エラー:', error);
-      }
-    });
-  });
-
-  $('#saveTableBtn').on('click', function() {
-    const tableName = $('#tableName').val();
-    const tableData = $('#ageComparisonTable').html();
-
-    $.ajax({
-      url: '/api/save-table',
-      method: 'POST',
-      contentType: 'application/json',
-      headers: {
-        'X-CSRF-Token': csrfToken
-      },
-      data: JSON.stringify({
-        tableName: tableName,
-        tableData: tableData
-      }),
-      success: function(response) {
-        alert(response.message);
       },
       error: function(xhr, status, error) {
         console.error('エラー:', error);
